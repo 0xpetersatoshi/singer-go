@@ -3,6 +3,8 @@ package catalog
 import (
 	"errors"
 	"fmt"
+
+	"github.com/pbegle/singer-go/cmd/singer/schema"
 )
 
 // Stream in a Catalog
@@ -10,7 +12,7 @@ type Stream struct {
     TapStreamID string
     Stream string
     KeyProperties []string
-    Schema string // TODO: make this a struct
+    Schema schema.Schema
     ReplicationKey string
     ReplicationMethod string
     IsView bool
