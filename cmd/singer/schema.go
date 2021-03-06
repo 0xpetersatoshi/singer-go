@@ -1,4 +1,4 @@
-package schema
+package singer
 
 // Schema defines the shape and properties of a stream
 type Schema struct {
