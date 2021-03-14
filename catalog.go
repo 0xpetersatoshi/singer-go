@@ -9,23 +9,23 @@ import (
 
 // Stream in a Catalog
 type Stream struct {
-	TapStreamID       string   `json:"tap_stream_id"`
-	Stream            string   `json:"stream"`
-	KeyProperties     []string `json:"key_properties"`
-	Schema            *Schema  `json:"schema"`
-	ReplicationKey    string   `json:"replication_key"`
-	ReplicationMethod string   `json:"replication_method"`
-	IsView            bool     `json:"is_view"`
-	Database          string   `json:"database"`
-	Table             string   `json:"table"`
-	RowCount          int      `json:"row_count"`
-	StreamAlias       string   `json:"stream_alias"`
-	Metadata          string   `json:"metadata"` // TODO: make this a struct
+	TapStreamID       string   `json:"tap_stream_id,omitempty"`
+	Stream            string   `json:"stream,omitempty"`
+	KeyProperties     []string `json:"key_properties,omitempty"`
+	Schema            *Schema  `json:"schema,omitempty"`
+	ReplicationKey    string   `json:"replication_key,omitempty"`
+	ReplicationMethod string   `json:"replication_method,omitempty"`
+	IsView            bool     `json:"is_view,omitempty"`
+	Database          string   `json:"database,omitempty"`
+	Table             string   `json:"table,omitempty"`
+	RowCount          int      `json:"row_count,omitempty"`
+	StreamAlias       string   `json:"stream_alias,omitempty"`
+	Metadata          string   `json:"metadata,omitempty"` // TODO: make this a struct
 }
 
 // Catalog contains streams
 type Catalog struct {
-	Streams []Stream `json:"streams"`
+	Streams []Stream `json:"streams,omitempty"`
 }
 
 // GetStream iterates through slice and returns Stream struct matching stream name
