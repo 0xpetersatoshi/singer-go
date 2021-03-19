@@ -14,7 +14,7 @@ type MetadataProperties struct {
 	StreamName              string   `json:"stream_name"`
 }
 
-func (m *Metadata) GetStandardMetadata(stream *Stream) {
+func (m *Metadata) GetStandardMetadata(stream *Entry) {
 	m.Metadata.StreamName = stream.GetName()
 	m.Metadata.TableKeyProperties = stream.GetKeyProperties()
 	m.Metadata.ForcedReplicationMethod = stream.GetReplicationMethod()

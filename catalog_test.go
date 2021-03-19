@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-var stream *Stream = &Stream{
+var stream *Entry = &Entry{
 	Name:              "MyStream",
 	ReplicationKey:    "LastUpdated",
 	ReplicationMethod: "INCREMENTAL",

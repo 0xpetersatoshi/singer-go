@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-// Stream in a Catalog
-type Stream struct {
+// Entry in a Catalog
+type Entry struct {
 	TapStreamID       string      `json:"tap_stream_id,omitempty"`
 	Name              string      `json:"stream,omitempty"`
 	KeyProperties     []string    `json:"key_properties,omitempty"`
@@ -25,11 +25,11 @@ type Stream struct {
 
 // Catalog contains streams
 type Catalog struct {
-	Streams []Stream `json:"streams,omitempty"`
+	Streams []Entry `json:"streams,omitempty"`
 }
 
 // GetStream iterates through slice and returns Stream struct matching stream name
-func (c Catalog) GetStream(streamID string) (Stream, error) {
+func (c Catalog) GetStream(streamID string) (Entry, error) {
 	for _, s := range c.Streams {
 		if s.TapStreamID == streamID {
 			return s, nil
@@ -37,7 +37,7 @@ func (c Catalog) GetStream(streamID string) (Stream, error) {
 	}
 
 	errorMessage := fmt.Sprintf("Stream %s not found", streamID)
-	return Stream{}, errors.New(errorMessage)
+	return Entry{}, errors.New(errorMessage)
 }
 
 // Dump outputs all the streams in the Catalog to JSON
@@ -50,18 +50,18 @@ func (c Catalog) Dump() string {
 	return string(bs)
 }
 
-func (s *Stream) GetKeyProperties() []string {
+func (s *Entry) GetKeyProperties() []string {
 	return s.KeyProperties
 }
 
-func (s *Stream) GetReplicationMethod() string {
+func (s *Entry) GetReplicationMethod() string {
 	return s.ReplicationMethod
 }
 
-func (s *Stream) GetReplicationKey() string {
+func (s *Entry) GetReplicationKey() string {
 	return s.ReplicationKey
 }
 
-func (s *Stream) GetName() string {
+func (s *Entry) GetName() string {
 	return s.Name
 }
