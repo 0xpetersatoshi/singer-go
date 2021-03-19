@@ -20,3 +20,12 @@ type Schema struct {
 	Anyof                string            `json:"anyOf,omitempty"`
 	PatternProperties    string            `json:"patternProperties,omitempty"`
 }
+
+
+func (s *Schema) GetKeyProperties() []string {
+    return s.KeyProperties
+}
+
+func (s *Schema) GetSelected() bool {
+    return s.Selected
+}
