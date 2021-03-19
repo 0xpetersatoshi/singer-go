@@ -10,7 +10,7 @@ import (
 // Stream in a Catalog
 type Stream struct {
 	TapStreamID       string      `json:"tap_stream_id,omitempty"`
-	Name            string      `json:"stream,omitempty"`
+	Name              string      `json:"stream,omitempty"`
 	KeyProperties     []string    `json:"key_properties,omitempty"`
 	Schema            *Schema     `json:"schema,omitempty"`
 	ReplicationKey    string      `json:"replication_key,omitempty"`
@@ -51,17 +51,17 @@ func (c Catalog) Dump() string {
 }
 
 func (s *Stream) GetKeyProperties() []string {
-    return s.KeyProperties
+	return s.KeyProperties
 }
 
 func (s *Stream) GetReplicationMethod() string {
-    return s.ReplicationMethod
+	return s.ReplicationMethod
 }
 
 func (s *Stream) GetReplicationKey() string {
-    return s.ReplicationKey
+	return s.ReplicationKey
 }
 
 func (s *Stream) GetName() string {
-    return s.Name
+	return s.Name
 }

@@ -5,12 +5,11 @@ import (
 	"testing"
 )
 
-
 var stream *Stream = &Stream{
-    Name:                 "MyStream",
-    ReplicationKey:          "LastUpdated",
-    ReplicationMethod:          "INCREMENTAL",
-    KeyProperties:        []string{"a", "b", "c"},
+	Name:              "MyStream",
+	ReplicationKey:    "LastUpdated",
+	ReplicationMethod: "INCREMENTAL",
+	KeyProperties:     []string{"a", "b", "c"},
 }
 
 func TestGetKeyProperties(t *testing.T) {
@@ -21,22 +20,22 @@ func TestGetKeyProperties(t *testing.T) {
 }
 
 func TestGetName(t *testing.T) {
-    streamName := stream.GetName()
-    if streamName != "MyStream" {
-        t.Error("Expected MyStream, got", streamName)
-    }
+	streamName := stream.GetName()
+	if streamName != "MyStream" {
+		t.Error("Expected MyStream, got", streamName)
+	}
 }
 
 func TestGetReplicationMethod(t *testing.T) {
-    replicationMethod := stream.GetReplicationMethod()
-    if replicationMethod != "INCREMENTAL" {
-        t.Error("Expected INCREMENTAL, got", replicationMethod)
-    }
+	replicationMethod := stream.GetReplicationMethod()
+	if replicationMethod != "INCREMENTAL" {
+		t.Error("Expected INCREMENTAL, got", replicationMethod)
+	}
 }
 
 func TestGetReplicationKey(t *testing.T) {
-    replicationKey := stream.GetReplicationKey()
-    if replicationKey != "LastUpdated" {
-        t.Error("Expected LastUpdated, got", replicationKey)
-    }
+	replicationKey := stream.GetReplicationKey()
+	if replicationKey != "LastUpdated" {
+		t.Error("Expected LastUpdated, got", replicationKey)
+	}
 }

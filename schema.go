@@ -22,5 +22,5 @@ type Schema struct {
 }
 
 func (s *Schema) GetSelected() bool {
-    return s.Selected
+	return s.Selected
 }
