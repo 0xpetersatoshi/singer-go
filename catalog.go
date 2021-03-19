@@ -29,7 +29,7 @@ type Catalog struct {
 }
 
 // GetStream iterates through slice and returns Stream struct matching stream name
-func (c Catalog) GetStream(streamID string) (Entry, error) {
+func (c *Catalog) GetStream(streamID string) (Entry, error) {
 	for _, s := range c.Streams {
 		if s.TapStreamID == streamID {
 			return s, nil
@@ -41,7 +41,7 @@ func (c Catalog) GetStream(streamID string) (Entry, error) {
 }
 
 // Dump outputs all the streams in the Catalog to JSON
-func (c Catalog) Dump() string {
+func (c *Catalog) Dump() string {
 	bs, err := json.MarshalIndent(c, "", "  ")
 	if err != nil {
 		log.Fatalf("Error marshaling JSON from Catalog: %s", err)
