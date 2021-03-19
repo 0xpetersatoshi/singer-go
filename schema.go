@@ -21,11 +21,6 @@ type Schema struct {
 	PatternProperties    string            `json:"patternProperties,omitempty"`
 }
 
-
-func (s *Schema) GetKeyProperties() []string {
-    return s.KeyProperties
-}
-
 func (s *Schema) GetSelected() bool {
     return s.Selected
 }

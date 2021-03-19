@@ -9,18 +9,18 @@ import (
 
 // Stream in a Catalog
 type Stream struct {
-	TapStreamID       string   `json:"tap_stream_id,omitempty"`
-	Stream            string   `json:"stream,omitempty"`
-	KeyProperties     []string `json:"key_properties,omitempty"`
-	Schema            *Schema  `json:"schema,omitempty"`
-	ReplicationKey    string   `json:"replication_key,omitempty"`
-	ReplicationMethod string   `json:"replication_method,omitempty"`
-	IsView            bool     `json:"is_view,omitempty"`
-	Database          string   `json:"database,omitempty"`
-	Table             string   `json:"table,omitempty"`
-	RowCount          int      `json:"row_count,omitempty"`
-	StreamAlias       string   `json:"stream_alias,omitempty"`
-	Metadata          string   `json:"metadata,omitempty"` // TODO: make this a struct
+	TapStreamID       string      `json:"tap_stream_id,omitempty"`
+	Name            string      `json:"stream,omitempty"`
+	KeyProperties     []string    `json:"key_properties,omitempty"`
+	Schema            *Schema     `json:"schema,omitempty"`
+	ReplicationKey    string      `json:"replication_key,omitempty"`
+	ReplicationMethod string      `json:"replication_method,omitempty"`
+	IsView            bool        `json:"is_view,omitempty"`
+	Database          string      `json:"database,omitempty"`
+	Table             string      `json:"table,omitempty"`
+	RowCount          int         `json:"row_count,omitempty"`
+	StreamAlias       string      `json:"stream_alias,omitempty"`
+	Metadata          []*Metadata `json:"metadata"`
 }
 
 // Catalog contains streams
@@ -48,4 +48,20 @@ func (c Catalog) Dump() string {
 	}
 
 	return string(bs)
+}
+
+func (s *Stream) GetKeyProperties() []string {
+    return s.KeyProperties
+}
+
+func (s *Stream) GetReplicationMethod() string {
+    return s.ReplicationMethod
+}
+
+func (s *Stream) GetReplicationKey() string {
+    return s.ReplicationKey
+}
+
+func (s *Stream) GetName() string {
+    return s.Name
 }
