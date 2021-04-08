@@ -26,22 +26,22 @@ var mTwo = &Metadata{
 	Metadata: mpTwo,
 }
 
-var tests = []struct {
-	name string
-	metadata *Metadata
-	expected bool
-}{
-	{"stream is selected", mOne, true},
-	{"stream is not selected", mTwo, false},
-}
-
-
 func TestIsSelected(t *testing.T) {
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T){
-			result := tt.metadata.IsSelected()
-			if result != tt.expected {
-				t.Errorf("metadata.IsSelected() got %v, want %v", result, tt.expected)
+	type test map[string]struct {
+		metadata *Metadata
+		want bool
+	}
+
+	tests := test {
+		"stream is selected": {mOne, true},
+		"stream is not selected": {mTwo, false},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T){
+			got := tc.metadata.IsSelected()
+			if got != tc.want {
+				t.Errorf("test %s: want %#v, got %#v", name, tc.want, got)
 			}
 		})
 	}
