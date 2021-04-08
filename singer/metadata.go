@@ -1,7 +1,7 @@
 package singer
 
 type Metadata struct {
-	Metadata   MetadataProperties `json:"metadata"`
+	Metadata   *MetadataProperties `json:"metadata"`
 	Breadcrumb []string           `json:"breadcrumb"`
 }
 
@@ -24,3 +24,7 @@ func (m *Metadata) GetStandardMetadata(stream *Entry) {
 func (m *Metadata) toSlice() {}
 
 func (m *Metadata) write() {}
+
+func (m *Metadata) IsSelected() bool {
+	return m.Metadata.Selected
+}
