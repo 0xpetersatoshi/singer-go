@@ -63,7 +63,7 @@ func GetSelectedStreamsCatalog(catalog *Catalog) (*Catalog, error) {
 		}
 	}
 
-	if newCatalog != (&Catalog{}) {
+	if len(newCatalog.Streams) > 0 {
 		return newCatalog, nil
 	} else {
 		return nil, errors.New("Catalog is empty, no streams selected")

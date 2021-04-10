@@ -22,6 +22,14 @@ var stream2 *Entry = &Entry{
 	Metadata: []*Metadata{m2},
 }
 
+var stream3 *Entry = &Entry{
+	Name: "Stream3",
+	ReplicationMethod: "INCREMENTAL",
+	ReplicationKey: "modify_time",
+	KeyProperties: []string{"id", "property_id", "attribute_id"},
+	Metadata: []*Metadata{m1},
+}
+
 var m1 *Metadata = &Metadata{
 	MetadataProps: mp1,
 }
@@ -42,14 +50,20 @@ func TestGetSelectedStreamsCatalog(t *testing.T) {
 	type test map[string]struct {
 		catalog *Catalog
 		want *Catalog
-		err error
 	}
 
 	tests := test {
 		"one selected stream": {
 			catalog: &Catalog{Streams: []*Entry{stream, stream2}},
 			want: &Catalog{Streams: []*Entry{stream}},
-			err: nil,
+		},
+		"two selected streams": {
+			catalog: &Catalog{Streams: []*Entry{stream, stream2, stream3}},
+			want: &Catalog{Streams: []*Entry{stream, stream3}},
+		},
+		"empty catalog error": {
+			catalog: &Catalog{Streams: []*Entry{stream2}},
+			want: nil,
 		},
 	}
 
