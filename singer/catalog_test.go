@@ -3,6 +3,8 @@ package singer
 import (
 	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 var stream *Entry = &Entry{
@@ -10,6 +12,56 @@ var stream *Entry = &Entry{
 	ReplicationKey:    "LastUpdated",
 	ReplicationMethod: "INCREMENTAL",
 	KeyProperties:     []string{"a", "b", "c"},
+	Metadata: []*Metadata{m1},
+}
+
+var stream2 *Entry = &Entry{
+	Name:              "Stream2",
+	ReplicationMethod: "FULL_TABLE",
+	KeyProperties:     []string{"a", "b", "c"},
+	Metadata: []*Metadata{m2},
+}
+
+var m1 *Metadata = &Metadata{
+	MetadataProps: mp1,
+}
+
+var m2 *Metadata = &Metadata{
+	MetadataProps: mp2,
+}
+
+var mp1 = &MetadataProperties{
+	Selected: true,
+}
+
+var mp2 = &MetadataProperties{
+	Selected: false,
+}
+
+func TestGetSelectedStreamsCatalog(t *testing.T) {
+	type test map[string]struct {
+		catalog *Catalog
+		want *Catalog
+		err error
+	}
+
+	tests := test {
+		"one selected stream": {
+			catalog: &Catalog{Streams: []*Entry{stream, stream2}},
+			want: &Catalog{Streams: []*Entry{stream}},
+			err: nil,
+		},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T){
+			got, _ := GetSelectedStreamsCatalog(tc.catalog)
+			diff := cmp.Diff(tc.want, got)
+			if diff != "" {
+				t.Fatal(diff)
+			}
+		})
+	}
 }
 
 func TestGetKeyProperties(t *testing.T) {
