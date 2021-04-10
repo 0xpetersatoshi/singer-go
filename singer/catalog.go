@@ -25,11 +25,11 @@ type Entry struct {
 
 // Catalog contains streams
 type Catalog struct {
-	Streams []Entry `json:"streams,omitempty"`
+	Streams []*Entry `json:"streams,omitempty"`
 }
 
 // GetStream iterates through slice and returns Stream struct matching stream name
-func (c *Catalog) GetStream(streamID string) (Entry, error) {
+func (c *Catalog) GetStream(streamID string) (*Entry, error) {
 	for _, s := range c.Streams {
 		if s.TapStreamID == streamID {
 			return s, nil
@@ -37,7 +37,7 @@ func (c *Catalog) GetStream(streamID string) (Entry, error) {
 	}
 
 	errorMessage := fmt.Sprintf("Stream %s not found", streamID)
-	return Entry{}, errors.New(errorMessage)
+	return &Entry{}, errors.New(errorMessage)
 }
 
 // Dump outputs all the streams in the Catalog to JSON
@@ -48,6 +48,26 @@ func (c *Catalog) Dump() string {
 	}
 
 	return string(bs)
+}
+
+// GetSelectedStreamsCatalog returns a pointer to a new catalog containing only selected streams
+func GetSelectedStreamsCatalog(catalog *Catalog) (*Catalog, error) {
+	newCatalog := &Catalog{}
+	for _, stream := range catalog.Streams {
+		for _, metadata := range stream.Metadata {
+			if metadata != nil {
+				if metadata.IsSelected() {
+					newCatalog.Streams = append(newCatalog.Streams, stream)
+				}
+			}
+		}
+	}
+
+	if newCatalog != (&Catalog{}) {
+		return newCatalog, nil
+	} else {
+		return nil, errors.New("Catalog is empty, no streams selected")
+	}
 }
 
 func (s *Entry) GetKeyProperties() []string {
