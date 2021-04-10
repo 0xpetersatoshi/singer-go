@@ -24,10 +24,10 @@ var mpTwo = &MetadataProperties{
 }
 
 var mOne = &Metadata{
-	Metadata: mpOne,
+	MetadataProps: mpOne,
 }
 var mTwo = &Metadata{
-	Metadata: mpTwo,
+	MetadataProps: mpTwo,
 }
 
 func TestIsSelected(t *testing.T) {
@@ -68,7 +68,7 @@ func TestGetStandardMetadata(t *testing.T) {
 	tests := test {
 		"standard case": {
 			metadata: &Metadata{
-				Metadata: mpOne,
+				MetadataProps: mpOne,
 			},
 			input: entryOne,
 			want: &MetadataProperties{
@@ -85,7 +85,7 @@ func TestGetStandardMetadata(t *testing.T) {
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T){
 			tc.metadata.GetStandardMetadata(tc.input)
-			diff := cmp.Diff(tc.want, tc.metadata.Metadata)
+			diff := cmp.Diff(tc.want, tc.metadata.MetadataProps)
 			if diff != "" {
 				t.Fatalf(diff)
 			}

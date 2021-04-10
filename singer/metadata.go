@@ -1,7 +1,7 @@
 package singer
 
 type Metadata struct {
-	Metadata   *MetadataProperties `json:"metadata"`
+	MetadataProps   *MetadataProperties `json:"metadata"`
 	Breadcrumb []string           `json:"breadcrumb"`
 }
 
@@ -15,10 +15,10 @@ type MetadataProperties struct {
 }
 
 func (m *Metadata) GetStandardMetadata(stream *Entry) {
-	m.Metadata.StreamName = stream.GetName()
-	m.Metadata.TableKeyProperties = stream.GetKeyProperties()
-	m.Metadata.ForcedReplicationMethod = stream.GetReplicationMethod()
-	m.Metadata.ValidReplicationKeys = []string{stream.GetReplicationKey()}
+	m.MetadataProps.StreamName = stream.GetName()
+	m.MetadataProps.TableKeyProperties = stream.GetKeyProperties()
+	m.MetadataProps.ForcedReplicationMethod = stream.GetReplicationMethod()
+	m.MetadataProps.ValidReplicationKeys = []string{stream.GetReplicationKey()}
 }
 
 func (m *Metadata) toSlice() {}
@@ -26,5 +26,5 @@ func (m *Metadata) toSlice() {}
 func (m *Metadata) write() {}
 
 func (m *Metadata) IsSelected() bool {
-	return m.Metadata.Selected
+	return m.MetadataProps.Selected
 }
