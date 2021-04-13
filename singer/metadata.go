@@ -21,10 +21,6 @@ func (m *Metadata) GetStandardMetadata(stream *Entry) {
 	m.MetadataProps.ValidReplicationKeys = []string{stream.GetReplicationKey()}
 }
 
-func (m *Metadata) toSlice() {}
-
-func (m *Metadata) write() {}
-
 func (m *Metadata) IsSelected() bool {
 	return m.MetadataProps.Selected
 }
